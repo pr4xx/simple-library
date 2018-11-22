@@ -15,6 +15,7 @@
                         @endif
 
                         You are logged in!
+                        <i class="fa fa-heart"></i>
                     </div>
                 </div>
             </div>
