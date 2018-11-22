@@ -16,6 +16,7 @@
         "laravel-mix": "^2.0",
         "less": "^3.8.1",
         "less-loader": "^4.1.0",
-        "lodash": "^4.17.5"
+        "lodash": "^4.17.5",
+        "datatables.net-bs": "^1.10.19"
     }
 }

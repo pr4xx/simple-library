@@ -13,3 +13,7 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
    .less('resources/less/app.less', 'public/css');
+
+mix.setResourceRoot('../');
+mix.sourceMaps();
+mix.disableNotifications();

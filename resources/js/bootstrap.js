@@ -10,7 +10,10 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
-} catch (e) {}
+    require('datatables.net')(window, window.$);
+    require('datatables.net-bs')(window, window.$);
+} catch (e) {
+}
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
