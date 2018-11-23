@@ -12,6 +12,10 @@
 */
 
 Route::get('/', function () {
+    if(auth()->check()) {
+        return redirect('home');
+    }
+
     return view('welcome');
 });
 
@@ -21,8 +25,9 @@ Auth::routes([
     'verify' => false
 ]);
 
-Route::middleware('auth')->group(function() {
-    Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth', 'menu')->group(function() {
+    Route::get('home', 'HomeController@index');
+    Route::get('home/test', 'HomeController@index');
 });
 
 
