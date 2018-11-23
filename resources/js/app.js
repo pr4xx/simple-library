@@ -1,8 +1,20 @@
+// Libraries
+window._ = require('lodash');
+window.$ = window.jQuery = require('jquery');
 
-/**
- * First, we will load all of this project's Javascript utilities and other
- * dependencies. Then, we will be ready to develop a robust and powerful
- * application frontend using useful Laravel and JavaScript libraries.
- */
+require('bootstrap');
+require('datatables.net');
+require('datatables.net-bs');
 
-require('./bootstrap');
+// Bootstrapping
+let token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+    window.$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+} else {
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
