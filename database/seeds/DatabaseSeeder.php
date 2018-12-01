@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $origins = factory(\App\Origin::class, 10)->create();
         $categories = factory(\App\Category::class, 10)->create();
         $tags = factory(\App\Tag::class, 10)->create();
-        for($i = 0; $i < 10; $i++) {
+        for($i = 0; $i < 99; $i++) {
             $books = factory(\App\Book::class)->create([
                 'author_id' => $authors->random()->id,
                 'origin_id' => $origins->random()->id,

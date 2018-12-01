@@ -19,5 +19,9 @@
         "less": "^3.8.1",
         "less-loader": "^4.1.0",
         "lodash": "^4.17.5"
+    },
+    "dependencies": {
+        "datatables.net-buttons-bs": "^1.5.4",
+        "datatables.net-plugins": "^1.10.18"
     }
 }

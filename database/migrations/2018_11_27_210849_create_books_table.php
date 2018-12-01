@@ -15,6 +15,7 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('signature')->unique();
             $table->string('title');
             $table->string('original_title');
 
@@ -29,6 +30,23 @@ class CreateBooksTable extends Migration
 
             $table->timestamps();
         });
+
+        Schema::create('book_tag', function (Blueprint $table) {
+            $table->integer('book_id')->unsigned();
+            $table->foreign('book_id')
+                ->references('id')
+                ->on('books')
+                ->onDelete('cascade');
+
+            $table->integer('tag_id')->unsigned();
+            $table->foreign('tag_id')
+                ->references('id')
+                ->on('tags')
+                ->onDelete('cascade');
+
+            $table->primary(['book_id', 'tag_id']);
+        });
+
     }
 
     /**
@@ -38,6 +56,7 @@ class CreateBooksTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('book_tag');
         Schema::dropIfExists('books');
     }
 }

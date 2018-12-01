@@ -55,7 +55,7 @@
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                               style="display: none;">
-                                            {{ csrf_field() }}
+                                            @csrf
                                         </form>
                                     </li>
                                 </ul>
@@ -67,6 +67,7 @@
         </nav>
 
         <div class="container-fluid">
+            @include('flash::message')
             @yield('content')
         </div>
     </div>
