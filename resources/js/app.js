@@ -8,6 +8,7 @@ require('datatables.net-bs');
 require('datatables.net-buttons-bs');
 require('datatables.net-buttons/js/buttons.colVis.js');
 window.datatablesClickable = require('./datatables-clickable');
+require('bootstrap-select');
 
 // Helpers for creating correct urls
 window.url = (url) => {

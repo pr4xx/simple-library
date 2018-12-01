@@ -11,6 +11,7 @@
             <th>Autor*in</th>
             <th>Ort</th>
             <th>Gattung</th>
+            <th>Schlagworte</th>
         </tr>
         </thead>
     </table>
@@ -29,7 +30,8 @@
                 columns: [
                     {
                         data: 'signature',
-                        name: 'signature'
+                        name: 'signature',
+                        render: datatablesClickable('books', 'edit')
                     },
                     {
                         data: 'title',
@@ -41,15 +43,26 @@
                     },
                     {
                         data: 'author.name',
-                        name: 'author.name'
+                        name: 'author.name',
+                        defaultContent: ''
                     },
                     {
                         data: 'origin.title',
-                        name: 'origin.title'
+                        name: 'origin.title',
+                        defaultContent: ''
                     },
                     {
                         data: 'category.title',
-                        name: 'category.title'
+                        name: 'category.title',
+                        defaultContent: ''
+                    },
+                    {
+                        data: 'tags',
+                        name: 'tags.title',
+                        orderable: false,
+                        render: function(data, type, row) {
+                            return _.map(data, 'title').join(', ');
+                        }
                     }
                 ],
                 order: [[0, 'asc']],
