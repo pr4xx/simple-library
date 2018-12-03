@@ -24,7 +24,6 @@ class CreateReadersTable extends Migration
             $table->string('email')->nullable();
             $table->boolean('has_whatsapp')->default(false);
             $table->boolean('paid_deposit')->default(false);
-            $table->dateTime('registered_at')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });

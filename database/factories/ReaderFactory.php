@@ -13,7 +13,6 @@ $factory->define(\App\Reader::class, function (Faker $faker) {
         'email' => $faker->email,
         'has_whatsapp' => (bool) rand(0, 1),
         'paid_deposit' => (bool) rand(0, 1),
-        'registered_at' => now(),
         'notes' => rand(0, 1) ? ucfirst($faker->words(rand(0, 100), true)) : null
     ];
 });

@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="fa fa-fw fa-plus"></i>
-                    Bücher bearbeiten
+                    Leser*innen bearbeiten
                 </div>
                 <div class="panel-body">
 

@@ -34,18 +34,22 @@ class ReaderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'signature' => ['required', Rule::unique('readers')]
+            'last_name' => ['required'],
+            'email' => ['nullable', 'email']
         ]);
 
         $reader = new Reader();
-        $reader->signature = $request->get('signature');
-        $reader->title = $request->get('title');
-        $reader->original_title = $request->get('original_title');
-        $reader->author_id = optional(Author::find($request->get('author_id')))->id;
-        $reader->origin_id = optional(Origin::find($request->get('origin_id')))->id;
-        $reader->category_id = optional(Category::find($request->get('category_id')))->id;
+        $reader->last_name = $request->get('last_name');
+        $reader->first_name = $request->get('first_name');
+        $reader->street = $request->get('street');
+        $reader->zip = $request->get('zip');
+        $reader->city = $request->get('city');
+        $reader->email = $request->get('email');
+        $reader->mobile = $request->get('mobile');
+        $reader->has_whatsapp = $request->has('has_whatsapp');
+        $reader->paid_deposit = $request->has('paid_deposit');
+        $reader->notes = $request->get('notes');
         $reader->save();
-        $reader->tags()->sync(Tag::findMany($request->get('tag_ids', []))->pluck('id')->toArray());
 
         flash()->success('Gespeichert.');
 
@@ -60,29 +64,29 @@ class ReaderController extends Controller
     public function edit($id)
     {
         $reader = Reader::findOrFail($id);
-        $authors = Author::orderBy('name')->get();
-        $origins = Origin::orderBy('title')->get();
-        $categories = Category::orderBy('title')->get();
-        $tags = Tag::orderBy('title')->get();
 
-        return view('readers.edit', compact('reader', 'authors', 'origins', 'categories', 'tags'));
+        return view('readers.edit', compact('reader'));
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'signature' => ['required', Rule::unique('readers')->ignore($id)]
+            'last_name' => ['required'],
+            'email' => ['nullable', 'email']
         ]);
 
         $reader = Reader::findOrFail($id);
-        $reader->signature = $request->get('signature');
-        $reader->title = $request->get('title');
-        $reader->original_title = $request->get('original_title');
-        $reader->author_id = optional(Author::find($request->get('author_id')))->id;
-        $reader->origin_id = optional(Origin::find($request->get('origin_id')))->id;
-        $reader->category_id = optional(Category::find($request->get('category_id')))->id;
+        $reader->last_name = $request->get('last_name');
+        $reader->first_name = $request->get('first_name');
+        $reader->street = $request->get('street');
+        $reader->zip = $request->get('zip');
+        $reader->city = $request->get('city');
+        $reader->email = $request->get('email');
+        $reader->mobile = $request->get('mobile');
+        $reader->has_whatsapp = $request->has('has_whatsapp');
+        $reader->paid_deposit = $request->has('paid_deposit');
+        $reader->notes = $request->get('notes');
         $reader->save();
-        $reader->tags()->sync(Tag::findMany($request->get('tag_ids', []))->pluck('id')->toArray());
 
         flash()->success('Gespeichert.');
 

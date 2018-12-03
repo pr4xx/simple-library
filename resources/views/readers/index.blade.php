@@ -16,7 +16,7 @@
             <th>Whatsapp?</th>
             <th>Pfand?</th>
             <th>Registriert am</th>
-            <th>Bemerkung</th>
+            <th>Bemerkungen</th>
         </tr>
         </thead>
     </table>
@@ -85,8 +85,8 @@
                         render: datatablesBoolean
                     },
                     {
-                        data: 'registered_at',
-                        name: 'registered_at',
+                        data: 'created_at',
+                        name: 'created_at',
                         defaultContent: ''
                     },
                     {

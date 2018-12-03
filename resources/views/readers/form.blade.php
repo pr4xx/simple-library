@@ -1,116 +1,126 @@
-<div class="form-group{{ $errors->has('signature') ? ' has-error' : '' }}">
-    <label for="signature" class="col-sm-2 control-label">Signatur</label>
+<div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+    <label for="last_name" class="col-sm-2 control-label">Nachname</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control" id="signature" name="signature" placeholder="Signatur"
-               value="{{ old('signature', optional($reader)->signature) }}" autofocus>
-        @if ($errors->has('signature'))
+        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Nachname"
+               value="{{ old('last_name', optional($reader)->last_name) }}" autofocus>
+        @if ($errors->has('last_name'))
             <span class="help-block">
-                <strong>{{ $errors->first('signature') }}</strong>
+                <strong>{{ $errors->first('last_name') }}</strong>
             </span>
         @endif
     </div>
 </div>
 
-<div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-    <label for="title" class="col-sm-2 control-label">Titel</label>
+<div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+    <label for="first_name" class="col-sm-2 control-label">Vorname</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control" id="title" name="title" placeholder="Titel"
-               value="{{ old('title', optional($reader)->title) }}">
-        @if ($errors->has('title'))
+        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Vorname"
+               value="{{ old('first_name', optional($reader)->first_name) }}">
+        @if ($errors->has('first_name'))
             <span class="help-block">
-                <strong>{{ $errors->first('title') }}</strong>
+                <strong>{{ $errors->first('first_name') }}</strong>
             </span>
         @endif
     </div>
 </div>
 
-<div class="form-group{{ $errors->has('original_title') ? ' has-error' : '' }}">
-    <label for="original_title" class="col-sm-2 control-label">(Original)</label>
+<div class="form-group{{ $errors->has('street') ? ' has-error' : '' }}">
+    <label for="street" class="col-sm-2 control-label">Straße, Nummer</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control" id="original_title" name="original_title" placeholder="Titel (Original)"
-               value="{{ old('original_title', optional($reader)->original_title) }}">
-        @if ($errors->has('original_title'))
+        <input type="text" class="form-control" id="street" name="street" placeholder="Straße, Nummer"
+               value="{{ old('street', optional($reader)->street) }}">
+        @if ($errors->has('street'))
             <span class="help-block">
-                <strong>{{ $errors->first('original_title') }}</strong>
+                <strong>{{ $errors->first('street') }}</strong>
             </span>
         @endif
     </div>
 </div>
 
-<div class="form-group{{ $errors->has('author_id') ? ' has-error' : '' }}">
-    <label for="author_id" class="col-sm-2 control-label">Autor*in</label>
+<div class="form-group{{ $errors->has('zip') ? ' has-error' : '' }}">
+    <label for="zip" class="col-sm-2 control-label">PLZ</label>
     <div class="col-sm-10">
-        <select id="author_id" name="author_id" class="selectpicker form-control" data-live-search="true" title="Auswählen">
-            <option value="" style="font-style: italic;">Auswählen</option>
-            @foreach($authors as $author)
-                <option value="{{ $author->id }}"
-                        @if(old('author_id', optional($reader)->author_id) == $author->id) selected @endif>
-                    {{ $author->name }}
-                </option>
-            @endforeach
-        </select>
-        @if ($errors->has('author_id'))
+        <input type="text" class="form-control" id="zip" name="zip" placeholder="PLZ"
+               value="{{ old('zip', optional($reader)->zip) }}">
+        @if ($errors->has('zip'))
             <span class="help-block">
-                <strong>{{ $errors->first('author_id') }}</strong>
+                <strong>{{ $errors->first('zip') }}</strong>
             </span>
         @endif
     </div>
 </div>
 
-<div class="form-group{{ $errors->has('origin_id') ? ' has-error' : '' }}">
-    <label for="origin_id" class="col-sm-2 control-label">Ort</label>
+<div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
+    <label for="city" class="col-sm-2 control-label">Ort</label>
     <div class="col-sm-10">
-        <select id="origin_id" name="origin_id" class="selectpicker form-control" data-live-search="true" title="Auswählen">
-            <option value="" style="font-style: italic;">Auswählen</option>
-            @foreach($origins as $origin)
-                <option value="{{ $origin->id }}"
-                        @if(old('origin_id', optional($reader)->origin_id) == $origin->id) selected @endif>
-                    {{ $origin->title }}
-                </option>
-            @endforeach
-        </select>
-        @if ($errors->has('origin_id'))
+        <input type="text" class="form-control" id="city" name="city" placeholder="Ort"
+               value="{{ old('city', optional($reader)->city) }}">
+        @if ($errors->has('city'))
             <span class="help-block">
-                <strong>{{ $errors->first('origin_id') }}</strong>
+                <strong>{{ $errors->first('city') }}</strong>
             </span>
         @endif
     </div>
 </div>
 
-<div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
-    <label for="category_id" class="col-sm-2 control-label">Gattung</label>
+<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+    <label for="email" class="col-sm-2 control-label">E-Mail</label>
     <div class="col-sm-10">
-        <select id="category_id" name="category_id" class="selectpicker form-control" data-live-search="true" title="Auswählen">
-            <option value="" style="font-style: italic;">Auswählen</option>
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}"
-                        @if(old('category_id', optional($reader)->category_id) == $category->id) selected @endif>
-                    {{ $category->title }}
-                </option>
-            @endforeach
-        </select>
-        @if ($errors->has('category_id'))
+        <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail"
+               value="{{ old('email', optional($reader)->email) }}">
+        @if ($errors->has('email'))
             <span class="help-block">
-                <strong>{{ $errors->first('category_id') }}</strong>
+                <strong>{{ $errors->first('email') }}</strong>
             </span>
         @endif
     </div>
 </div>
 
-<div class="form-group{{ $errors->has('tag_id') ? ' has-error' : '' }}">
-    <label for="tag_id" class="col-sm-2 control-label">Schlagworte</label>
+<div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
+    <label for="mobile" class="col-sm-2 control-label">Mobilnummer</label>
     <div class="col-sm-10">
-        <select id="tag_id" name="tag_ids[]" class="selectpicker form-control" data-live-search="true" title="Auswählen" multiple>
-            @foreach($tags as $tag)
-                <option value="{{ $tag->id }}"
-                        @if(in_array($tag->id, old('tag_ids', optional($reader)->tags->pluck('id')->toArray()))) selected @endif>
-                    {{ $tag->title }}
-                </option>
-            @endforeach
-        </select>
-        @if ($errors->has('tag_id'))
+        <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobilnummer"
+               value="{{ old('mobile', optional($reader)->mobile) }}">
+        @if ($errors->has('mobile'))
             <span class="help-block">
-                <strong>{{ $errors->first('tag_id') }}</strong>
+                <strong>{{ $errors->first('mobile') }}</strong>
+            </span>
+        @endif
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="has_whatsapp" class="col-sm-2 control-label">Whatsapp?</label>
+    <div class="col-sm-10">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="has_whatsapp" name="has_whatsapp"
+                       value="1" @if(old('has_whatsapp', optional($reader)->has_whatsapp)) checked @endif>
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="paid_deposit" class="col-sm-2 control-label">Pfand?</label>
+    <div class="col-sm-10">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="paid_deposit" name="paid_deposit"
+                       value="1" @if(old('paid_deposit', optional($reader)->paid_deposit)) checked @endif>
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="form-group{{ $errors->has('notes') ? ' has-error' : '' }}">
+    <label for="notes" class="col-sm-2 control-label">Bemerkungen</label>
+    <div class="col-sm-10">
+        <textarea class="form-control" id="notes" name="notes"
+                  placeholder="Bemerkungen">{{ old('notes', optional($reader)->notes) }}</textarea>
+        @if ($errors->has('notes'))
+            <span class="help-block">
+                <strong>{{ $errors->first('notes') }}</strong>
             </span>
         @endif
     </div>

@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="fa fa-fw fa-plus"></i>
-                    Bücher hinzufügen
+                    Leser*innen hinzufügen
                 </div>
                 <div class="panel-body">
 
