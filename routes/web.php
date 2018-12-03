@@ -31,6 +31,9 @@ Route::middleware('auth', 'menu')->group(function() {
     Route::get('books/data', 'BookController@data');
     Route::resource('books', 'BookController');
 
+    Route::get('readers/data', 'ReaderController@data');
+    Route::resource('readers', 'ReaderController');
+
     Route::get('tables/authors/data', 'AuthorController@data');
     Route::resource('tables/authors', 'AuthorController');
 
