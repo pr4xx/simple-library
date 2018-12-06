@@ -27,6 +27,10 @@ class BuildMenu
             $customers->add('<i class="fa fa-fw fa-list"></i> Liste', 'readers')->active('readers/*/edit');
             $customers->add('<i class="fa fa-fw fa-plus"></i> Hinzufügen', 'readers/create');
 
+            $lendings = $menu->add('<i class="fa fa-fw fa-clock-o"></i> Ausleihen', 'lendings');
+            $lendings->add('<i class="fa fa-fw fa-list"></i> Liste', 'lendings')->active('lendings/*/edit');
+            $lendings->add('<i class="fa fa-fw fa-plus"></i> Hinzufügen', 'lendings/create');
+
             $books = $menu->add('<i class="fa fa-fw fa-cogs"></i> Stammdaten', 'tables')->active('tables/*');
             $books->add('<i class="fa fa-fw fa-user"></i> Autor*innen', 'tables/authors')->active('tables/authors/*');
             $books->add('<i class="fa fa-fw fa-map-marker"></i> Orte', 'tables/origins')->active('tables/origins/*');

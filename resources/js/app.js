@@ -1,7 +1,6 @@
 // Libraries
 window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
-
 require('bootstrap');
 require('datatables.net');
 require('datatables.net-bs');
@@ -11,6 +10,7 @@ window.datatablesClickable = require('./datatables-clickable');
 window.datatablesBoolean = require('./datatables-boolean');
 window.datatablesTrimText = require('./datatables-trim-text');
 require('bootstrap-select');
+window.moment = require('moment');
 
 // Helpers for creating correct urls
 window.url = (url) => {

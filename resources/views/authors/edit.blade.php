@@ -6,7 +6,7 @@
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-fw fa-plus"></i>
+                    <i class="fa fa-fw fa-edit"></i>
                     Autor*innen bearbeiten
                 </div>
                 <div class="panel-body">

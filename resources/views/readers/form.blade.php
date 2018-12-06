@@ -1,3 +1,14 @@
+@if(optional($reader)->id)
+    <div class="form-group">
+        <label class="col-sm-2 control-label">ID</label>
+        <div class="col-sm-10">
+            <p class="form-control-static">
+                {{ optional($reader)->id }}
+            </p>
+        </div>
+    </div>
+@endif
+
 <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
     <label for="last_name" class="col-sm-2 control-label">Nachname</label>
     <div class="col-sm-10">

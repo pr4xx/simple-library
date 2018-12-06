@@ -34,6 +34,9 @@ Route::middleware('auth', 'menu')->group(function() {
     Route::get('readers/data', 'ReaderController@data');
     Route::resource('readers', 'ReaderController');
 
+    Route::get('lendings/data', 'LendingController@data');
+    Route::resource('lendings', 'LendingController')->except('destroy');
+
     Route::get('tables/authors/data', 'AuthorController@data');
     Route::resource('tables/authors', 'AuthorController');
 

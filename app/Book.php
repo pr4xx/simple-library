@@ -25,4 +25,16 @@ class Book extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function lendings()
+    {
+        return $this->hasMany(Lending::class);
+    }
+
+    public function scopeAvailable($query)
+    {
+        return $query->whereDoesntHave('lendings', function ($subQuery) {
+            $subQuery->whereNull('returned_at');
+        });
+    }
 }
