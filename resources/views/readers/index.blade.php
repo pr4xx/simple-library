@@ -30,7 +30,10 @@
             $('#table').DataTable({
                 serverSide: true,
                 processing: true,
-                ajax: url('readers/data'),
+                ajax: {
+                    url: url('readers/data'),
+                    type: 'post'
+                },
                 stateSave: true,
                 columns: [
                     {

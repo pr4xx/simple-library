@@ -19,7 +19,10 @@
             $('#table').DataTable({
                 serverSide: true,
                 processing: true,
-                ajax: url('tables/authors/data'),
+                ajax: {
+                    url: url('tables/authors/data'),
+                    type: 'post'
+                },
                 stateSave: true,
                 columns: [
                     {
