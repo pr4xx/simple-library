@@ -22,6 +22,7 @@ class CreateLendingsTable extends Migration
             $table->unsignedInteger('reader_id')->nullable();
             $table->foreign('reader_id')->references('id')->on('readers')->onDelete('set null');
 
+            $table->dateTime('due_at')->nullable();
             $table->dateTime('returned_at')->nullable();
 
             $table->timestamps();

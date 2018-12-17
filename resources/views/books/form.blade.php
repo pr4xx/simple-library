@@ -97,7 +97,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has('tag_id') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has('tag_ids') ? ' has-error' : '' }}">
     <label for="tag_id" class="col-sm-2 control-label">Schlagworte</label>
     <div class="col-sm-10">
         <select id="tag_id" name="tag_ids[]" class="selectpicker form-control" data-live-search="true" title="Auswählen" multiple>
@@ -108,9 +108,9 @@
                 </option>
             @endforeach
         </select>
-        @if ($errors->has('tag_id'))
+        @if ($errors->has('tag_ids'))
             <span class="help-block">
-                <strong>{{ $errors->first('tag_id') }}</strong>
+                <strong>{{ $errors->first('tag_ids') }}</strong>
             </span>
         @endif
     </div>

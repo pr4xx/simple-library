@@ -47,6 +47,15 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="col-sm-2 control-label">Fällig am</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">
+                                    {{ optional($lending->due_at)->format('d.m.Y') ?? '-' }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-fw fa-check"></i>

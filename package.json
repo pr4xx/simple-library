@@ -21,6 +21,7 @@
         "lodash": "^4.17.5"
     },
     "dependencies": {
+        "bootstrap-datepicker": "^1.8.0",
         "bootstrap-select": "^1.13.3",
         "datatables.net-buttons-bs": "^1.5.4",
         "datatables.net-plugins": "^1.10.18",

@@ -9,6 +9,7 @@ use App\Category;
 use App\Origin;
 use App\Reader;
 use App\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -28,7 +29,7 @@ class LendingController extends Controller
 
         return datatables()->eloquent(Lending::with($with)->select([
             'lendings.*',
-        ])->orderBy('returned_at', 'asc'))->toJson();
+        ]))->toJson();
     }
 
     public function create()
@@ -42,14 +43,21 @@ class LendingController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'book_id' => ['required'],
+            'book_ids' => ['required', 'array'],
             'reader_id' => ['required'],
+            'due_at' => ['required', 'date_format:d.m.Y'],
         ]);
 
-        $lending = new Lending();
-        $lending->book_id = optional(Book::available()->find($request->get('book_id')))->id;
-        $lending->reader_id = optional(Reader::find($request->get('reader_id')))->id;
-        $lending->save();
+        $reader = Reader::find($request->get('reader_id'));
+        $dueAt = Carbon::createFromFormat('d.m.Y', $request->get('due_at'));
+
+        foreach($request->get('book_ids', []) as $bookId) {
+            $lending = new Lending();
+            $lending->book_id = optional(Book::available()->find($bookId))->id;
+            $lending->reader_id = optional($reader)->id;
+            $lending->due_at = $dueAt;
+            $lending->save();
+        }
 
         flash()->success('Gespeichert.');
 

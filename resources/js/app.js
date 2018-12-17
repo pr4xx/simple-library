@@ -9,7 +9,10 @@ require('datatables.net-buttons/js/buttons.colVis.js');
 window.datatablesClickable = require('./datatables-clickable');
 window.datatablesBoolean = require('./datatables-boolean');
 window.datatablesTrimText = require('./datatables-trim-text');
+window.datatablesDate = require('./datatables-date');
 require('bootstrap-select');
+require('bootstrap-datepicker');
+require('bootstrap-datepicker/js/locales/bootstrap-datepicker.de');
 window.moment = require('moment');
 
 // Helpers for creating correct urls

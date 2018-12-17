@@ -29,12 +29,14 @@ class DatabaseSeeder extends Seeder
                 'category_id' => $categories->random()->id
             ]);
             $book->tags()->attach($tags->random(rand(1, 3))->pluck('id')->toArray());
-            if(rand(0, 5) > 3 AND false) {
+            if(rand(0, 5) > 3 && false) {
+                $createdAt = now()->subDays(rand(0, 10));
                 $lending = new \App\Lending();
                 $lending->book_id = $book->id;
                 $lending->reader_id = $readers->random()->id;
-                $lending->returned_at = rand(0, 1) ? now() : null;
-                $lending->created_at = now()->subDays(rand(0, 10));
+                $lending->due_at = $createdAt->copy()->addDays(14);
+                $lending->returned_at = rand(0, 1) ? now()->addDays(rand(1, 20)) : null;
+                $lending->created_at = $createdAt;
                 $lending->save();
             }
         }

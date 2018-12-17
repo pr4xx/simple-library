@@ -11,7 +11,8 @@
             <th>Leser*in Nachname</th>
             <th>Leser*in Vorname</th>
             <th>Ausgeliehen am</th>
-            <th>Status</th>
+            <th>Fällig am</th>
+            <th>Zurückgegeben am</th>
         </tr>
         </thead>
     </table>
@@ -62,27 +63,22 @@
                     {
                         data: 'created_at',
                         name: 'created_at',
-                        searchable: false
+                        searchable: false,
+                        render: datatablesDate
+                    },
+                    {
+                        data: 'due_at',
+                        name: 'due_at',
+                        defaultContent: '',
+                        searchable: false,
+                        render: datatablesDate
                     },
                     {
                         data: 'returned_at',
                         name: 'returned_at',
                         defaultContent: '',
                         searchable: false,
-                        orderable: false,
-                        render: function(data, type, row) {
-                            if(!data) {
-                                var dateCreated = moment(row.created_at);
-
-                                return '<span class="text-danger">Ausgeliehen ' +
-                                    ' (seit ' + moment().diff(dateCreated, 'days') + ' Tagen)' + '</span>';
-                            }
-
-                            var dateReturned = moment(row.created_at);
-
-                            return '<span class="text-success">Zurückgegeben' +
-                                ' (nach ' + moment().diff(dateReturned, 'days') + ' Tagen)' + '</span>';
-                        }
+                        render: datatablesDate
                     }
                 ],
                 order: [[0, 'asc']],
