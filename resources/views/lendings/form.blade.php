@@ -43,6 +43,26 @@
     </div>
 </div>
 
+<div class="form-group{{ $errors->has('created_at') ? ' has-error' : '' }}">
+    <label for="created_at" class="col-sm-2 control-label">Ausgeliehen am</label>
+    <div class="col-sm-10">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+            </span>
+            <input type="text" class="form-control" id="created_at" name="created_at" value="{{ old('created_at') }}" placeholder="TT.MM.JJJJ">
+        </div>
+        <span class="help-block">
+            <button type="button" class="btn btn-xs btn-default" onclick="setToday()">Heute</button>
+        </span>
+        @if ($errors->has('created_at'))
+            <span class="help-block">
+                <strong>{{ $errors->first('created_at') }}</strong>
+            </span>
+        @endif
+    </div>
+</div>
+
 <div class="form-group{{ $errors->has('due_at') ? ' has-error' : '' }}">
     <label for="due_at" class="col-sm-2 control-label">Fällig am</label>
     <div class="col-sm-10">
@@ -67,20 +87,33 @@
 
 @push('scripts')
     <script type="text/javascript">
-        var datepickerSelector = '#due_at';
+        var createdAtSelector = '#created_at';
+        var dueSelector = '#due_at';
+
+        function setToday() {
+            var newDate = moment();
+            $(createdAtSelector).datepicker('setDate', newDate.toDate());
+        }
 
         function addDays(count) {
             var newDate = moment().add(count, 'day');
-            $(datepickerSelector).datepicker('setDate', newDate.toDate());
+            $(dueSelector).datepicker('setDate', newDate.toDate());
         }
 
         $(document).ready(function () {
-
-            $(datepickerSelector).datepicker({
+            
+            var datepickerOptions = {
                 language: 'de',
                 autoclose: true,
                 orientation: 'bottom'
-            });
+            };
+
+            $(createdAtSelector).datepicker(datepickerOptions);
+            $(dueSelector).datepicker(datepickerOptions);
+
+            if(!$(createdAtSelector).val()) {
+                setToday();
+            }
 
         });
     </script>

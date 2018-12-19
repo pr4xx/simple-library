@@ -45,16 +45,19 @@ class LendingController extends Controller
         $this->validate($request, [
             'book_ids' => ['required', 'array'],
             'reader_id' => ['required'],
+            'created_at' => ['required', 'date_format:d.m.Y'],
             'due_at' => ['required', 'date_format:d.m.Y'],
         ]);
 
         $reader = Reader::find($request->get('reader_id'));
+        $createdAt = Carbon::createFromFormat('d.m.Y', $request->get('created_at'));
         $dueAt = Carbon::createFromFormat('d.m.Y', $request->get('due_at'));
 
         foreach($request->get('book_ids', []) as $bookId) {
             $lending = new Lending();
             $lending->book_id = optional(Book::available()->find($bookId))->id;
             $lending->reader_id = optional($reader)->id;
+            $lending->created_at = $createdAt;
             $lending->due_at = $dueAt;
             $lending->save();
         }

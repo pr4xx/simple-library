@@ -25,4 +25,14 @@ class Lending extends Model
     {
         return $query->whereNull('returned_at');
     }
+
+    public function scopeReturned($query)
+    {
+        return $query->whereNotNull('returned_at');
+    }
+
+    public function scopeDue($query)
+    {
+        return $query->whereNotNull('due_at')->where('due_at', '<', now());
+    }
 }

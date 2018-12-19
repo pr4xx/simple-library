@@ -11,13 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    if(auth()->check()) {
-        return redirect('home');
-    }
-
-    return view('welcome');
-});
+Route::get('/', 'GuestController@root');
 
 Auth::routes([
     'register' => false,

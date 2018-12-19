@@ -19,6 +19,7 @@ COPY --from=vendor /app/vendor/ /usr/src/app/vendor
 WORKDIR /usr/src/app
 RUN touch database/database.sqlite
 RUN php artisan config:cache
+RUN php artisan route:cache
 RUN php artisan migrate:fresh --seed
 
 CMD php artisan serve --port=8000 --host=0.0.0.0
