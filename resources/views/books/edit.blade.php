@@ -41,6 +41,46 @@
 
                 </div>
             </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-fw fa-book"></i>
+                    Aktuelle Ausleihe
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th class="col-lg-3"></th>
+                        <th class="col-lg-2"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($lendings as $lending)
+                        <tr>
+                            <td>
+                                {{ $lending->reader->first_name }}
+                                {{ $lending->reader->last_name }}
+                            </td>
+                            <td class="text-right">
+                                <a href="{{ url('readers/' . $lending->reader->id . '/edit') }}">
+                                    Leser*in
+                                </a>
+                            </td>
+                            <td class="text-right">
+                                <a href="{{ url('lendings/' . $lending->id . '/edit') }}">
+                                    Ausleihe
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="2"><i>Keine aktuelle Ausleihe</i></td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

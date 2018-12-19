@@ -10,4 +10,9 @@ class Reader extends Model
         'has_whatsapp' => 'boolean',
         'paid_deposit' => 'boolean',
     ];
+
+    public function lendings()
+    {
+        return $this->hasMany(Lending::class);
+    }
 }

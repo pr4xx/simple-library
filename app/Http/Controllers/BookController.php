@@ -93,8 +93,9 @@ class BookController extends Controller
         $origins = Origin::orderBy('title')->get();
         $categories = Category::orderBy('title')->get();
         $tags = Tag::orderBy('title')->get();
+        $lendings = $book->lendings()->with('reader')->active()->latest()->get();
 
-        return view('books.edit', compact('book', 'authors', 'origins', 'categories', 'tags'));
+        return view('books.edit', compact('book', 'authors', 'origins', 'categories', 'tags', 'lendings'));
     }
 
     public function update(Request $request, $id)

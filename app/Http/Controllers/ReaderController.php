@@ -64,8 +64,9 @@ class ReaderController extends Controller
     public function edit($id)
     {
         $reader = Reader::findOrFail($id);
+        $lendings = $reader->lendings()->with('book')->active()->latest()->get();
 
-        return view('readers.edit', compact('reader'));
+        return view('readers.edit', compact('reader', 'lendings'));
     }
 
     public function update(Request $request, $id)

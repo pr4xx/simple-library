@@ -41,6 +41,45 @@
 
                 </div>
             </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-fw fa-book"></i>
+                    Aktuelle Ausleihen
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Signatur</th>
+                        <th class="col-lg-2"></th>
+                        <th class="col-lg-2"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($lendings as $lending)
+                        <tr>
+                            <td>
+                                {{ $lending->book->signature }}
+                            </td>
+                            <td class="text-right">
+                                <a href="{{ url('books/' . $lending->book->id . '/edit') }}">
+                                    Buch
+                                </a>
+                            </td>
+                            <td class="text-right">
+                                <a href="{{ url('lendings/' . $lending->id . '/edit') }}">
+                                    Ausleihe
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="2"><i>Keine aktuellen Ausleihen</i></td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

@@ -20,7 +20,7 @@
                             <div class="col-sm-10">
                                 <p class="form-control-static">
                                     <a href="{{ url('books/' . $lending->book->id . '/edit') }}">
-                                        {{ $lending->book->title }}
+                                        {{ $lending->book->title ?? 'Ohne Titel' }}
                                     </a>
                                     <br>
                                     <span class="text-muted">

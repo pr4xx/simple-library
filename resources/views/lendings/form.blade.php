@@ -4,9 +4,9 @@
         <select id="book_id" name="book_ids[]" class="selectpicker form-control" data-live-search="true"
                 title="Auswählen" multiple autofocus>
             @foreach($books as $book)
-                <option value="{{ $book->id }}"
+                <option value="{{ $book->id }}" data-subtext="{{ $book->signature }}"
                         @if(in_array($book->id, old('book_ids', []))) selected @endif>
-                    {{ $book->title }}
+                    {{ $book->title ?? 'Ohne Titel' }}
                 </option>
             @endforeach
         </select>

@@ -20,4 +20,9 @@ class Lending extends Model
     {
         return $this->belongsTo(Reader::class);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->whereNull('returned_at');
+    }
 }
