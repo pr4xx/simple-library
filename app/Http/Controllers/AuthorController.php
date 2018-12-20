@@ -35,6 +35,7 @@ class AuthorController extends Controller
 
         $author = new Author();
         $author->name = $request->get('name');
+        $author->notes = $request->get('notes');
         $author->save();
 
         flash()->success('Gespeichert.');
@@ -62,6 +63,7 @@ class AuthorController extends Controller
 
         $author = Author::findOrFail($id);
         $author->name = $request->get('name');
+        $author->notes = $request->get('notes');
         $author->save();
 
         flash()->success('Gespeichert.');

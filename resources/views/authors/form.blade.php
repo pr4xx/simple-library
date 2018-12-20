@@ -10,3 +10,16 @@
         @endif
     </div>
 </div>
+
+<div class="form-group{{ $errors->has('notes') ? ' has-error' : '' }}">
+    <label for="notes" class="col-sm-2 control-label">Bemerkungen</label>
+    <div class="col-sm-10">
+        <textarea class="form-control" id="notes" name="notes"
+                  placeholder="Bemerkungen">{{ old('notes', optional($author)->notes) }}</textarea>
+        @if ($errors->has('notes'))
+            <span class="help-block">
+                <strong>{{ $errors->first('notes') }}</strong>
+            </span>
+        @endif
+    </div>
+</div>

@@ -18,6 +18,9 @@ class CreateBooksTable extends Migration
             $table->string('signature')->unique();
             $table->string('title')->nullable();
             $table->string('original_title')->nullable();
+            $table->string('translated_title')->nullable();
+            $table->integer('year')->nullable();
+            $table->text('notes')->nullable();
 
             $table->unsignedInteger('author_id')->nullable();
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('set null');

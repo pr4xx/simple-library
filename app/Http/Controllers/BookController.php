@@ -46,13 +46,17 @@ class BookController extends Controller
         $this->validate($request, [
             'signature' => ['required', Rule::unique('books')],
             'author_name' => ['nullable', Rule::unique('authors', 'name')],
-            'origin_title' => ['nullable', Rule::unique('origins', 'title')]
+            'origin_title' => ['nullable', Rule::unique('origins', 'title')],
+            'year' => ['nullable', 'integer']
         ]);
 
         $book = new Book();
         $book->signature = $request->get('signature');
         $book->title = $request->get('title');
         $book->original_title = $request->get('original_title');
+        $book->translated_title = $request->get('translated_title');
+        $book->year = $request->get('year');
+        $book->notes = $request->get('notes');
 
         if($authorName = $request->get('author_name')) {
             $author = new Author();
@@ -101,12 +105,16 @@ class BookController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'signature' => ['required', Rule::unique('books')->ignore($id)]
+            'signature' => ['required', Rule::unique('books')->ignore($id)],
+            'year' => ['nullable', 'integer']
         ]);
 
         $book = Book::findOrFail($id);
         $book->signature = $request->get('signature');
         $book->title = $request->get('title');
+        $book->translated_title = $request->get('translated_title');
+        $book->year = $request->get('year');
+        $book->notes = $request->get('notes');
         $book->original_title = $request->get('original_title');
         $book->author_id = optional(Author::find($request->get('author_id')))->id;
         $book->origin_id = optional(Origin::find($request->get('origin_id')))->id;

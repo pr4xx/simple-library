@@ -6,6 +6,7 @@
         <thead>
         <tr>
             <th>Name</th>
+            <th>Bemerkungen</th>
         </tr>
         </thead>
     </table>
@@ -29,6 +30,10 @@
                         data: 'name',
                         name: 'name',
                         render: datatablesClickable('tables/authors', 'edit')
+                    },
+                    {
+                        data: 'notes',
+                        name: 'notes'
                     }
                 ],
                 order: [[0, 'asc']],

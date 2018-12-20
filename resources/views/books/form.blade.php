@@ -37,6 +37,32 @@
     </div>
 </div>
 
+<div class="form-group{{ $errors->has('translated_title') ? ' has-error' : '' }}">
+    <label for="translated_title" class="col-sm-2 control-label">(Übersetzt)</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="translated_title" name="translated_title" placeholder="Titel (Übersetzt)"
+               value="{{ old('translated_title', optional($book)->translated_title) }}">
+        @if ($errors->has('translated_title'))
+            <span class="help-block">
+                <strong>{{ $errors->first('translated_title') }}</strong>
+            </span>
+        @endif
+    </div>
+</div>
+
+<div class="form-group{{ $errors->has('year') ? ' has-error' : '' }}">
+    <label for="year" class="col-sm-2 control-label">Jahr</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="year" name="year" placeholder="Jahr"
+               value="{{ old('year', optional($book)->year) }}">
+        @if ($errors->has('year'))
+            <span class="help-block">
+                <strong>{{ $errors->first('year') }}</strong>
+            </span>
+        @endif
+    </div>
+</div>
+
 <div class="form-group{{ $errors->has('author_id') || $errors->has('author_name') ? ' has-error' : '' }}">
     <label for="author_id" class="col-sm-2 control-label">Autor*in</label>
     <div class="col-sm-10">
@@ -149,6 +175,19 @@
         @if ($errors->has('tag_ids'))
             <span class="help-block">
                 <strong>{{ $errors->first('tag_ids') }}</strong>
+            </span>
+        @endif
+    </div>
+</div>
+
+<div class="form-group{{ $errors->has('notes') ? ' has-error' : '' }}">
+    <label for="notes" class="col-sm-2 control-label">Bemerkungen</label>
+    <div class="col-sm-10">
+        <textarea class="form-control" id="notes" name="notes"
+                  placeholder="Bemerkungen">{{ old('notes', optional($book)->notes) }}</textarea>
+        @if ($errors->has('notes'))
+            <span class="help-block">
+                <strong>{{ $errors->first('notes') }}</strong>
             </span>
         @endif
     </div>

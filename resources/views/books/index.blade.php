@@ -8,10 +8,13 @@
             <th>Signatur</th>
             <th>Titel</th>
             <th>Titel (Original)</th>
+            <th>Titel (Übersetzt)</th>
+            <th>Jahr</th>
             <th>Autor*in</th>
             <th>Ort</th>
             <th>Gattung</th>
             <th>Schlagworte</th>
+            <th>Bemerkungen</th>
         </tr>
         </thead>
     </table>
@@ -38,11 +41,23 @@
                     },
                     {
                         data: 'title',
-                        name: 'title'
+                        name: 'title',
+                        defaultContent: '',
                     },
                     {
                         data: 'original_title',
-                        name: 'original_title'
+                        name: 'original_title',
+                        defaultContent: '',
+                    },
+                    {
+                        data: 'translated_title',
+                        name: 'translated_title',
+                        defaultContent: '',
+                    },
+                    {
+                        data: 'year',
+                        name: 'year',
+                        defaultContent: '',
                     },
                     {
                         data: 'author.name',
@@ -66,7 +81,13 @@
                         render: function(data, type, row) {
                             return _.map(data, 'title').join(', ');
                         }
-                    }
+                    },
+                    {
+                        data: 'notes',
+                        name: 'notes',
+                        defaultContent: '',
+                        render: datatablesTrimText(30)
+                    },
                 ],
                 order: [[0, 'asc']],
                 dom:
