@@ -6,6 +6,8 @@ use App\Book;
 use App\Lending;
 use App\Reader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -23,5 +25,24 @@ class HomeController extends Controller
         $dueLendings = Lending::active()->due()->count();
 
         return view('home', compact('books', 'readers', 'lendings', 'activeLendings', 'dueLendings'));
+    }
+
+    public function backup()
+    {
+        $oldFiles = Storage::allFiles('backup');
+
+        foreach ($oldFiles as $file) {
+            Storage::delete($file);
+        }
+
+        Artisan::call('backup:run');
+
+        $newFiles = Storage::allFiles('backup');
+
+        if(count($newFiles) === 1) {
+            return Storage::download($newFiles[0]);
+        }
+
+        return 'Something went wrong.';
     }
 }

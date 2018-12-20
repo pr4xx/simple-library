@@ -52,8 +52,16 @@
                                                      document.getElementById('logout-form').submit();">
                                             Abmelden
                                         </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        <a href="{{ url('backup') }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('backup-form').submit();">
+                                            Sicherung erstellen
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="post"
+                                              style="display: none;">
+                                            @csrf
+                                        </form>
+                                        <form id="backup-form" action="{{ url('backup') }}" method="post"
                                               style="display: none;">
                                             @csrf
                                         </form>

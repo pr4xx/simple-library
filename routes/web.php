@@ -21,6 +21,7 @@ Auth::routes([
 
 Route::middleware('auth', 'menu')->group(function() {
     Route::get('home', 'HomeController@index');
+    Route::post('backup', 'HomeController@backup');
 
     Route::any('books/data', 'BookController@data');
     Route::resource('books', 'BookController');
