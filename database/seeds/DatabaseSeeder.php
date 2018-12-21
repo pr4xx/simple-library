@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $admin->password = bcrypt('admin');
         $admin->save();
 
+        return;
+
         $authors = factory(\App\Author::class, 100)->create();
         $origins = factory(\App\Origin::class, 100)->create();
         $categories = factory(\App\Category::class, 100)->create();

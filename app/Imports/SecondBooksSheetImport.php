@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Author;
 use App\Book;
+use App\Category;
 use App\Origin;
 use App\Tag;
 use Illuminate\Support\Collection;
@@ -11,7 +12,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class FirstBooksSheetImport implements ToCollection
+class SecondBooksSheetImport implements ToCollection
 {
     /**
      * @param Collection $collection
@@ -28,19 +29,22 @@ class FirstBooksSheetImport implements ToCollection
             // Extract values
             [
                 $signature,
+                $unused1,
                 $authorName,
                 $title,
                 $originalTitle,
                 $translatedTitle,
-                $originTitle,
-                $year,
-                $locationTitle,
-                $authorNotes,
+                $originAndYear,
                 $notes,
-                $tag1Title,
-                $tag2Title,
-                $tag3Title
+                $categoryTitle
             ] = $row->map('trim');
+
+            if(count($exploded = explode(' ', $originAndYear)) === 2) {
+                [$originTitle, $year] = $exploded;
+            } else {
+                $originTitle = null;
+                $year = null;
+            }
 
             if(!$signature && !$title) {
                 continue;
@@ -54,8 +58,6 @@ class FirstBooksSheetImport implements ToCollection
             Author::unguard();
             $author = $authorName ? Author::firstOrCreate([
                 'name' => $authorName
-            ], [
-                'notes' => $authorNotes
             ]) : null;
 
             Origin::unguard();
@@ -63,26 +65,10 @@ class FirstBooksSheetImport implements ToCollection
                 'title' => $originTitle
             ]) : null;
 
-            Tag::unguard();
-            $tag1 = $tag1Title ? Tag::firstOrCreate([
-                'title' => $tag1Title
+            Category::unguard();
+            $category = (trim($categoryTitle) !== '' && $categoryTitle !== null) ? Category::firstOrCreate([
+                'title' => $categoryTitle
             ]) : null;
-            $tag2 = $tag2Title ? Tag::firstOrCreate([
-                'title' => $tag2Title
-            ]) : null;
-            $tag3 = $tag3Title ? Tag::firstOrCreate([
-                'title' => $tag3Title
-            ]) : null;
-            $tagIds = [];
-            if($tag1) {
-                $tagIds[] = $tag1->id;
-            }
-            if($tag2) {
-                $tagIds[] = $tag2->id;
-            }
-            if($tag3) {
-                $tagIds[] = $tag3->id;
-            }
 
             Book::unguard();
             $book = Book::firstOrCreate([
@@ -95,8 +81,8 @@ class FirstBooksSheetImport implements ToCollection
                 'notes' => $notes,
                 'author_id' => optional($author)->id,
                 'origin_id' => optional($origin)->id,
+                'category_id' => optional($category)->id,
             ]);
-            $book->tags()->sync($tagIds);
         }
     }
 }

@@ -43,6 +43,8 @@ class HomeController extends Controller
             return Storage::download($newFiles[0]);
         }
 
-        return 'Something went wrong.';
+        return view('backup-error', [
+            'error' => Artisan::output()
+        ]);
     }
 }
