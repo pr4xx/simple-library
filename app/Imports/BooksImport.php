@@ -18,6 +18,8 @@ class BooksImport implements WithMultipleSheets
         return [
             0 => new FirstBooksSheetImport(),
             1 => new SecondBooksSheetImport(),
+            2 => new ThirdBooksSheetImport(),
+            3 => new ForthBooksSheetImport(),
         ];
     }
 }

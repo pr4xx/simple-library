@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Author;
 use App\Book;
+use App\Category;
 use App\Origin;
 use App\Tag;
 use Illuminate\Support\Collection;
@@ -11,7 +12,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class FirstBooksSheetImport implements ToCollection
+class ForthBooksSheetImport implements ToCollection
 {
     /**
      * @param Collection $collection
@@ -27,6 +28,8 @@ class FirstBooksSheetImport implements ToCollection
 
             // Extract values
             [
+                $unused1,
+                $number,
                 $signature,
                 $authorName,
                 $title,
@@ -34,24 +37,26 @@ class FirstBooksSheetImport implements ToCollection
                 $translatedTitle,
                 $originTitle,
                 $year,
-                $locationTitle,
+                $location,
                 $authorNotes,
                 $notes,
                 $tag1Title,
                 $tag2Title,
-                $tag3Title
+                $tag3Title,
             ] = $row->map('trim');
+
+            $number = $row[1];
 
             if(!$signature && !$title) {
                 continue;
             }
 
             if(!$signature) {
-                $signature = 'Unbekannt ' . substr(md5($title), 0, 8);
-            }
-
-            if($locationTitle) {
-                $notes = 'Standort: ' . $locationTitle . "\n" . $notes;
+                if($number) {
+                    $signature = 'Nummer ' . $number;
+                } else {
+                    $signature = 'Unbekannt ' . substr(md5($title), 0, 8);
+                }
             }
 
             // Create models
