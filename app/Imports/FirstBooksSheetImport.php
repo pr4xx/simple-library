@@ -42,6 +42,8 @@ class FirstBooksSheetImport implements ToCollection
                 $tag3Title
             ] = $row->map('trim');
 
+            $year = $year == '' ? null : intval($year);
+
             if(!$signature && !$title) {
                 continue;
             }
