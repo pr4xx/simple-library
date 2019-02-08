@@ -13,9 +13,7 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    protected $commands = [
-        BooksImport::class
-    ];
+    protected $commands = [];
 
     /**
      * Define the application's command schedule.

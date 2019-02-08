@@ -40,11 +40,24 @@ class HomeController extends Controller
         $newFiles = Storage::allFiles('backup');
 
         if(count($newFiles) === 1) {
-            return Storage::download($newFiles[0]);
+            return redirect('download/latest-backup');
         }
 
         return view('backup-error', [
             'error' => Artisan::output()
         ]);
+    }
+
+    public function downloadLatestBackup()
+    {
+        $files = Storage::allFiles('backup');
+
+        if(count($files) < 1) {
+            flash()->warning('Sicherung konnte nicht heruntergeladen werden.');
+
+            return redirect('home');
+        }
+
+        return Storage::download($files[0]);
     }
 }
