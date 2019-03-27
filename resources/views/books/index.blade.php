@@ -15,6 +15,7 @@
             <th>Gattung</th>
             <th>Schlagworte</th>
             <th>Bemerkungen</th>
+            <th>Erfasst am</th>
         </tr>
         </thead>
     </table>
@@ -88,6 +89,12 @@
                         defaultContent: '',
                         render: datatablesTrimText(30)
                     },
+                    {
+                        data: 'created_at',
+                        name: 'created_at',
+                        searchable: false,
+                        render: datatablesDate
+                    },
                 ],
                 order: [[0, 'asc']],
                 dom:
@@ -105,6 +112,12 @@
                     {
                         extend: 'colvis',
                         text: '<i class="fa fa-fw fa-eye"></i> Spalten anzeigen'
+                    },
+                    {
+                        text: '<i class="fa fa-fw fa-download"></i> Exportieren',
+                        action: function (e, dt, node, config) {
+                            redirect('books/export');
+                        }
                     }
                 ]
             });

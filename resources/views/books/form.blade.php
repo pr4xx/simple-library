@@ -141,21 +141,40 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
-    <label for="category_id" class="col-sm-2 control-label">Gattung</label>
+<div class="form-group{{ $errors->has('category_id') || $errors->has('category_title') ? ' has-error' : '' }}">
+    <label for="category_id" class="col-sm-2 control-label">Gattungen</label>
     <div class="col-sm-10">
-        <select id="category_id" name="category_id" class="selectpicker form-control" data-live-search="true" title="Auswählen">
-            <option value="" style="font-style: italic;">Auswählen</option>
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}"
-                        @if(old('category_id', optional($book)->category_id) == $category->id) selected @endif>
-                    {{ $category->title }}
-                </option>
-            @endforeach
-        </select>
+        <div id="category-select">
+            <select id="category_id" name="category_id" class="selectpicker form-control" data-live-search="true" title="Auswählen">
+                <option value="" style="font-style: italic;">Auswählen</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}"
+                            @if(old('category_id', optional($book)->category_id) == $category->id) selected @endif>
+                        {{ $category->title }}
+                    </option>
+                @endforeach
+            </select>
+            @if(!optional($book)->id)
+                <span class="help-block">
+                    <button type="button" class="btn btn-xs btn-default" onclick="addCategory(true);">Hinzufügen</button>
+                </span>
+            @endif
+        </div>
+        <div id="category-add" style="display: none;">
+            <input type="text" class="form-control" id="category_title" name="category_title" placeholder="Titel"
+                   value="{{ old('category_title') }}">
+            <span class="help-block">
+                <button type="button" class="btn btn-xs btn-default" onclick="selectCategory();">Auswählen</button>
+            </span>
+        </div>
         @if ($errors->has('category_id'))
             <span class="help-block">
                 <strong>{{ $errors->first('category_id') }}</strong>
+            </span>
+        @endif
+        @if ($errors->has('category_title'))
+            <span class="help-block">
+                <strong>{{ $errors->first('category_title') }}</strong>
             </span>
         @endif
     </div>
@@ -164,17 +183,39 @@
 <div class="form-group{{ $errors->has('tag_ids') ? ' has-error' : '' }}">
     <label for="tag_id" class="col-sm-2 control-label">Schlagworte</label>
     <div class="col-sm-10">
-        <select id="tag_id" name="tag_ids[]" class="selectpicker form-control" data-live-search="true" title="Auswählen" multiple>
-            @foreach($tags as $tag)
-                <option value="{{ $tag->id }}"
-                        @if(in_array($tag->id, old('tag_ids', optional($book)->tags->pluck('id')->toArray()))) selected @endif>
-                    {{ $tag->title }}
-                </option>
-            @endforeach
-        </select>
+        <div id="tags-select">
+            <select id="tag_id" name="tag_ids[]" class="selectpicker form-control" data-live-search="true" title="Auswählen" multiple>
+                @foreach($tags as $tag)
+                    <option value="{{ $tag->id }}"
+                            @if(in_array($tag->id, old('tag_ids', optional($book)->tags->pluck('id')->toArray()))) selected @endif>
+                        {{ $tag->title }}
+                    </option>
+                @endforeach
+            </select>
+            @if(!optional($book)->id)
+                <span class="help-block">
+                    <button type="button" class="btn btn-xs btn-default" onclick="addTags(true);">Hinzufügen</button>
+                </span>
+            @endif
+        </div>
+        <div id="tags-add" style="display: none;">
+            <input type="text" class="form-control" id="tag_titles" name="tag_titles" placeholder="Titel"
+                   value="{{ old('tag_titles') }}">
+            <small class="help-block">
+                Mehrere per Komma trennen: Fiktion, Romantik
+            </small>
+            <span class="help-block">
+                <button type="button" class="btn btn-xs btn-default" onclick="selectTags();">Auswählen</button>
+            </span>
+        </div>
         @if ($errors->has('tag_ids'))
             <span class="help-block">
                 <strong>{{ $errors->first('tag_ids') }}</strong>
+            </span>
+        @endif
+        @if ($errors->has('tag_titles'))
+            <span class="help-block">
+                <strong>{{ $errors->first('tag_titles') }}</strong>
             </span>
         @endif
     </div>
@@ -211,7 +252,7 @@
             $('#origin-add').hide();
             $('#origin_title').val('')
         }
-        
+
         // Author functions
         function addAuthor(focus) {
             $('#author-select').hide();
@@ -227,6 +268,40 @@
             $('#author-add').hide();
             $('#author_name').val('')
         }
+
+        // Category functions
+        function addCategory(focus) {
+            $('#category-select').hide();
+            $('#category-add').show();
+            $('#category_id').selectpicker('val', '');
+            if(focus) {
+                $('#category_title').focus();
+            }
+        }
+
+        function selectCategory() {
+            $('#category-select').show();
+            $('#category-add').hide();
+            $('#category_title').val('')
+        }
+
+        // Category functions
+        function addTags(focus) {
+            $('#tags-select').hide();
+            $('#tags-add').show();
+            $('#tag_id').selectpicker('val', '');
+            if(focus) {
+                $('#tag_titles').focus();
+            }
+        }
+
+        function selectTags() {
+            $('#tags-select').show();
+            $('#tags-add').hide();
+            $('#tag_titles').val('')
+        }
+
+
         
 
         $(document).ready(function () {
@@ -237,6 +312,14 @@
 
             if($('#author_name').val()) {
                 addAuthor();
+            }
+
+            if($('#category_title').val()) {
+                addCategory();
+            }
+
+            if($('#tag_titles').val()) {
+                addTags();
             }
 
         });

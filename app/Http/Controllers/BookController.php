@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Author;
 use App\Book;
 use App\Category;
+use App\Exports\BooksExport;
 use App\Origin;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BookController extends Controller
 {
@@ -29,6 +31,13 @@ class BookController extends Controller
         return datatables()->eloquent(Book::with($with)->select([
             'books.*',
         ]))->toJson();
+    }
+
+    public function export()
+    {
+        $date = date('d_m_Y_H_i');
+
+        return Excel::download(new BooksExport(), 'buecher_export_' . $date . '.xlsx');
     }
 
     public function create()
@@ -76,9 +85,33 @@ class BookController extends Controller
             $book->origin_id = optional(Origin::find($request->get('origin_id')))->id;
         }
 
-        $book->category_id = optional(Category::find($request->get('category_id')))->id;
+        if($categoryTitle = $request->get('category_title')) {
+            $category = new Category();
+            $category->title = $categoryTitle;
+            $category->save();
+            $book->category_id = $category->id;
+        } else {
+            $book->category_id = optional(Category::find($request->get('category_id')))->id;
+        }
+
         $book->save();
-        $book->tags()->sync(Tag::findMany($request->get('tag_ids', []))->pluck('id')->toArray());
+
+        if($tagTitles = $request->get('tag_titles')) {
+            $tagTitles = str_replace(' ', '', $tagTitles);
+            $newTagIds = [];
+            foreach (explode(',', $tagTitles) as $tagTitle) {
+                if($tagTitle === '') {
+                    continue;
+                }
+                $tag = new Tag();
+                $tag->title = $tagTitle;
+                $tag->save();
+                $newTagIds[] = $tag->id;
+            }
+            $book->tags()->sync($newTagIds);
+        } else {
+            $book->tags()->sync(Tag::findMany($request->get('tag_ids', []))->pluck('id')->toArray());
+        }
 
         flash()->success('Gespeichert.');
 

@@ -25,6 +25,7 @@ Route::middleware('auth', 'menu')->group(function() {
     Route::get('download/latest-backup', 'HomeController@downloadLatestBackup');
 
     Route::any('books/data', 'BookController@data');
+    Route::get('books/export', 'BookController@export');
     Route::resource('books', 'BookController');
 
     Route::any('readers/data', 'ReaderController@data');
