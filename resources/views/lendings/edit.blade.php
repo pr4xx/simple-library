@@ -49,17 +49,43 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Fällig am</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">
-                                    {{ optional($lending->due_at)->format('d.m.Y') ?? '-' }}
-                                </p>
+                                <div id="due-at-text"><p class="form-control-static">
+                                        {{ optional($lending->due_at)->format('d.m.Y') ?? '-' }}
+                                    </p>
+                                    <span class="help-block">
+                                        <button type="button" class="btn btn-xs btn-default" onclick="enableEdit();">
+                                            Bearbeiten
+                                        </button>
+                                    </span>
+                                </div>
+                                <div id="due-at-edit" style="display: none;">
+                                    <input type="hidden" id="update_due_at" name="update_due_at" value="1" disabled>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="due_at" name="due_at"
+                                               value="{{ optional($lending->due_at)->format('d.m.Y') ?? '' }}"
+                                               placeholder="TT.MM.JJJJ">
+                                    </div>
+                                    <span class="help-block">
+                                        <button type="button" class="btn btn-xs btn-default" onclick="disableEdit();">
+                                            Abbrechen
+                                        </button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="return-button">
                                     <i class="fa fa-fw fa-check"></i>
                                     Zurückgeben
+                                </button>
+                                <button type="submit" class="btn btn-primary" id="update-button" style="display: none;">
+                                    <i class="fa fa-fw fa-check"></i>
+                                    Speichern
                                 </button>
                                 <a class="btn btn-default pull-right" href="{{ url('lendings') }}">
                                     Abbrechen
@@ -74,3 +100,36 @@
     </div>
 
 @endsection
+@push('scripts')
+    <script type="text/javascript">
+        var dueSelector = '#due_at';
+
+        function enableEdit() {
+            $('#return-button').hide();
+            $('#due-at-text').hide();
+            $('#update-button').show();
+            $('#due-at-edit').show();
+            $('#update_due_at').prop('disabled', false);
+        }
+
+        function disableEdit() {
+            $('#return-button').show();
+            $('#due-at-text').show();
+            $('#update-button').hide();
+            $('#due-at-edit').hide();
+            $('#update_due_at').prop('disabled', true);
+        }
+
+        $(document).ready(function () {
+
+            var datepickerOptions = {
+                language: 'de',
+                autoclose: true,
+                orientation: 'bottom'
+            };
+
+            $(dueSelector).datepicker(datepickerOptions);
+
+        });
+    </script>
+@endpush

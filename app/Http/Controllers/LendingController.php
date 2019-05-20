@@ -82,7 +82,16 @@ class LendingController extends Controller
     public function update(Request $request, $id)
     {
         $lending = Lending::findOrFail($id);
-        $lending->returned_at = now();
+        $isUpdating = request('update_due_at', false);
+        if($isUpdating) {
+            $this->validate($request, [
+                'due_at' => ['required', 'date_format:d.m.Y'],
+            ]);
+            $dueAt = Carbon::createFromFormat('d.m.Y', $request->get('due_at'));
+            $lending->due_at = $dueAt;
+        } else {
+            $lending->returned_at = now();
+        }
         $lending->save();
 
         flash()->success('Gespeichert.');
